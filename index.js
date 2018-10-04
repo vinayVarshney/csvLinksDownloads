@@ -29,18 +29,20 @@ csv
   async function download(rec){
     try{
         var filename = rec.replace(/\//g, '')
-        var file = fs.createWriteStream("recording"+filename);
+        
+        var file = fs.createWriteStream('./recordings/recording'+filename);
         var request = await http.get("http:"+rec, function(response) {
         
             response.pipe(file);
             file.on('finish', function() {
                 file.close();
                 //cb();
+            //request.on("error", function(e){ console.error(e.message); });
             
         })
     }) 
 }
-    catch (err){ console.log(err)}
+    catch (e){ console.log(e)}
 }
 
 
